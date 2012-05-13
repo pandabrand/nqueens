@@ -33,6 +33,40 @@ def show_queens
 	end
 end
 
+def attack_check(q_check)
+	#first attack check, make sure queen isn't on the same row
+	for q in $q_array
+		if(q.id != q_check.id && nil != q.row && q.row == q_check.row)
+			return true
+		end
+	end
+end
+
+def position_queen(q_placed, initcol)
+	if(nil == q_placed.column)
+		q_placed.column = initcol
+		q_placed.row = 1
+	end
+	
+	q_placed.is_good = false
+	
+	while(q_placed.row < $nQ && !q_placed.is_good)
+		if(attack_check(q_placed))
+			q_placed.row += 1
+		else
+			q_placed.is_good = true
+			nextcol = q_placed.column + 1
+			nextindex = q_placed.id - 1
+			is_good = position_queen($q_array[nextindex],nextcol) 
+			if(!is_good)
+				q_placed.is_good = false
+				q_placed.row += 1
+			end
+		end
+	end
+	return q_placed.is_good
+end	
+
 puts "Enter a grid number:"
 $nQ = STDIN.gets
 $nQ = $nQ.to_i
@@ -48,7 +82,11 @@ when 3
 	puts "No solution for a grid size of 3"
 when 4 .. 24
 	build_queens($nQ)
-	show_queens()
+	if(position_queen($q_array[0],1))
+		show_queens()
+	else
+		puts "No Solution available for grid size: #{$nQ}"
+	end
 else
 	puts "Come one now! You and I both know we're not going to do that."
 end
