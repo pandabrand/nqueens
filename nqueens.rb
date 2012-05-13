@@ -40,6 +40,8 @@ def attack_check(q_check)
 			return true
 		end
 	end
+	
+	return false
 end
 
 def position_queen(q_placed, initcol)
@@ -50,13 +52,18 @@ def position_queen(q_placed, initcol)
 	
 	q_placed.is_good = false
 	
-	while(q_placed.row < $nQ && !q_placed.is_good)
+	while(q_placed.row <= $nQ && !q_placed.is_good)
 		if(attack_check(q_placed))
 			q_placed.row += 1
 		else
 			q_placed.is_good = true
-			nextcol = q_placed.column + 1
-			nextindex = q_placed.id - 1
+			#puts "this one is good:"
+			#q_placed.show
+			nextcol = initcol + 1
+			nextindex = q_placed.id
+			if(nextcol > $nQ)
+				return q_placed.is_good
+			end
 			is_good = position_queen($q_array[nextindex],nextcol) 
 			if(!is_good)
 				q_placed.is_good = false
