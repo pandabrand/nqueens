@@ -40,34 +40,34 @@ def attack_check(q_check)
 	end
 	
 	#second attack check, make sure that no left upward diagonals exist
-# 	c = 1
-# 	while(q_check.column - c > 0)
-# 		for q_ud in $q_array
-# 			rowcheck = q_check.row - c
-# 			colcheck = q_check.column - c
-# 			#puts "up q_check = " + q_check.id.to_s + " rowcheck = #{rowcheck} colcheck = #{colcheck}"
-# 			if(q_ud.id != q_check.id && nil != q_ud.column && q_ud.column == colcheck && q_ud.row == rowcheck)
-# 				puts "its a hit! #{rowcheck},#{colcheck} " + q_check.id.to_s
-# 				return true
-# 			end
-# 		end
-# 		c += 1
-# 	end
+	c = 1
+	while(q_check.column - c > 0)
+		for q_ud in $q_array
+			rowcheck = q_check.row - c
+			colcheck = q_check.column - c
+			#puts "up q_check = " + q_check.id.to_s + " rowcheck = #{rowcheck} colcheck = #{colcheck}"
+			if(q_ud.id != q_check.id && q_ud.column == colcheck && q_ud.row == rowcheck)
+				#puts "its a hit! #{rowcheck},#{colcheck} " + q_check.id.to_s
+				return true
+			end
+		end
+		c += 1
+	end
 	
 	#third attack check, make sure that no left downward diagonals exist
-# 	d = 1
-# 	while(q_check.column - d >= 0 && q_check.row + d <= $q_array.length)
-# 		for q_ud in $q_array
-# 			rowcheck = q_check.row + d
-# 			colcheck = q_check.column - d
-# 			puts "down check: q_check = " + q_check.id.to_s + " rowcheck = #{rowcheck} colcheck = #{colcheck}"
-# 			if(q_ud.id != q_check.id && nil != q_ud.column && q_ud.column == colcheck && q_ud.row == rowcheck)
-# 				#puts "its a hit! #{rowcheck},#{colcheck}" + q_check.show
-# 				return true
-# 			end
-# 		end
-# 		d += 1
-# 	end
+	d = 1
+	while(q_check.column - d > 0)
+		for q_ud in $q_array
+			rowcheck = q_check.row + d
+			colcheck = q_check.column - d
+			#puts "down check: q_check = " + q_check.id.to_s + " rowcheck = #{rowcheck} colcheck = #{colcheck}"
+			if(q_ud.id != q_check.id && q_ud.column == colcheck && q_ud.row == rowcheck)
+				#puts "its a hit! #{rowcheck},#{colcheck}" + q_check.show
+				return true
+			end
+		end
+		d += 1
+	end
 	
 	
 	return false
@@ -94,6 +94,7 @@ def position_queen(q_placed)
 			if(!is_good)
 				$q_array.pop
 				q_placed.row += 1
+				q_placed.is_good = false
 			end
 		end
 	end
