@@ -18,7 +18,7 @@ class Queen
 	end
 	
 	def show
-		puts "id: #{id} column: #{column} row: #{row}"
+		puts "queen: #{id} column: #{column} row: #{row}"
 	end
 	
 	attr_reader :id, :row, :column, :is_good
@@ -45,9 +45,7 @@ def attack_check(q_check)
 		for q_ud in $q_array
 			rowcheck = q_check.row - c
 			colcheck = q_check.column - c
-			#puts "up q_check = " + q_check.id.to_s + " rowcheck = #{rowcheck} colcheck = #{colcheck}"
 			if(q_ud.id != q_check.id && q_ud.column == colcheck && q_ud.row == rowcheck)
-				#puts "its a hit! #{rowcheck},#{colcheck} " + q_check.id.to_s
 				return true
 			end
 		end
@@ -60,9 +58,7 @@ def attack_check(q_check)
 		for q_ud in $q_array
 			rowcheck = q_check.row + d
 			colcheck = q_check.column - d
-			#puts "down check: q_check = " + q_check.id.to_s + " rowcheck = #{rowcheck} colcheck = #{colcheck}"
 			if(q_ud.id != q_check.id && q_ud.column == colcheck && q_ud.row == rowcheck)
-				#puts "its a hit! #{rowcheck},#{colcheck}" + q_check.show
 				return true
 			end
 		end
@@ -98,10 +94,6 @@ def position_queen(q_placed)
 			end
 		end
 	end
-# 	if(!q_placed.is_good)
-# 		puts "resetting queen: " + q_placed.id.to_s
-# 		q_placed.reset_queen
-# 	end
 	return q_placed.is_good
 end	
 
