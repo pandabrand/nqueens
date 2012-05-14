@@ -111,6 +111,7 @@ when 2
 when 3
 	puts "No solution for a grid size of 3"
 when 4 .. 24
+	t_start = Time.now
 	s_queen = Queen.new(1)
 	s_queen.row = 1
 	s_queen.column = 1
@@ -120,6 +121,9 @@ when 4 .. 24
 	else
 		puts "No Solution available for grid size: #{$nQ}"
 	end
+	t_end = Time.now
+	t_solve = (t_end - t_start)
+	puts "Time to solve " + t_solve.to_s
 else
 	puts "Come one now! You and I both know we're not going to do that."
 end
